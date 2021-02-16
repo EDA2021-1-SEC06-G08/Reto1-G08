@@ -41,7 +41,7 @@ def printMenu():
     print("3- Consultar video con mayor trending en un pais")
     print("4- Consultar video con mayor trending por categoria")
     print("5- Consultar los videos con mas vistas")
-    print("0- Salir de latinoamerica")
+    print("0- Salir del menu")
     
 catalog = None
 
