@@ -80,7 +80,7 @@ while True:
     elif int(inputs[0] == 4):
         print("Cargando informacion de videos ...")
 
-    elif int(inputs[0] == 5)
+    elif int(inputs[0] == 5):
         print("Cargando informacion de videos ...")
         
     else:

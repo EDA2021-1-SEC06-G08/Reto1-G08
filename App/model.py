@@ -64,17 +64,16 @@ def addCategory(catalog, category):
     """
     Adiciona la categoria a lista de categoria
     """
-    t = newCategory(catalog['name'], catalog['id'])
-    lt.addLast(catalog['catalog'], t)
+    t = newCategory(category['name'], category['id'])
+    lt.addLast(catalog['names'], t)
 
 # Funciones para creacion de datos
 
-def newCategory(name):
+def newCategory(name, id):
     """
-    Crea una nueva estructura para modelar los videos de
-    una categoria y su promedio de ratings
+    Crea una nueva estructura para modelar las categorias 
     """
-    category = {'name':'','id':''}
+    category = {'name': '', 'id': ''}
     category['name'] = name
     category['id'] = id
     return category
@@ -84,6 +83,6 @@ def newCategory(name):
 # Funciones utilizadas para comparar elementos dentro de una lista
 
 def comparecategories(name, category):
-    return (name == category'name'])
+    return (name == category['name'])
 
 # Funciones de ordenamiento
