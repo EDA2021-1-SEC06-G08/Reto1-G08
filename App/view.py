@@ -43,12 +43,18 @@ def printMenu():
     print("5- Consultar los videos con mas vistas")
     print("0- Salir del menu")
 
-def initCatalog():
+def initCatalog_ARRAY_LIST():
     """
-    Inicializa el catalogo de libros
+    Inicializa el catalogo de libros con el tipo ARRAY_LIST
     """
-    return controller.initCatalog()
-    
+    return controller.initCatalog_ARRAY_LIST()
+
+def initCatalog_SINGLE_LINKED():
+    """
+    Inicialzia el catalogo de libros con el tiepo SINGLE_LINKED
+    """
+    return controller.initCatalog_SINGLE_LINKED()
+
 catalog = None
 
 def loadData(catalog):
@@ -64,16 +70,49 @@ while True:
     printMenu()
     inputs = input('Seleccione una opción para continuar\n')
     if int(inputs[0]) == 1:
-        print("Cargando información de los archivos ....")
-        catalog = initCatalog()
-        loadData(catalog)
-        print('Videos cargados'+str(lt.size(catalog['videos'])))
-        print('Categorias cargadas'+str(lt.size(catalog['categories'])))
-
+        regresar=True
+        while regresar:
+            type_list = input('Ingrese 0 si quiere que el tipo de representacion de la lista sea ARRAY_LIST o 1 si quiere que sea LINKED_LIST\n')
+            if int(type_list[0]) == 0:
+                print("Cargando información de los archivos ....")
+                catalog = initCatalog_ARRAY_LIST()
+                loadData(catalog)
+                print('Videos cargados ' + str(lt.size(catalog['videos'])))
+                print('Categorias cargadas ' + str(lt.size(catalog['categories'])))
+                regresar=False
+        
+            elif int(type_list[0]) == 1:
+                print("Cargando información de los archivos ....")
+                catalog = initCatalog_SINGLE_LINKED()
+                loadData(catalog)
+                print('Videos cargados' + str(lt.size(catalog['videos'])))
+                print('Categorias cargadas' + str(lt.size(catalog['categories'])))
+                regresar=False
+            else:
+                print("Recuerde que es un numero entre 0 y 1")
 
     elif int(inputs[0]) == 2:
-        print("Cargando informacion de videos en tendencia por pais y por categoria ...")
-    
+        regresar = True
+        while regresar:
+            ordenamiento = input('Seleccione 0 si quiere que el ordenamiento sea de tipo Selection, 1 si quiere que sea Insertion y 2 si quiere que sea Shell\n')
+            if int(ordenamiento[0]) == 0:
+                size = input("Indique el tamanio de la muestra: ")
+                result = controller.sortSelectionVideo(catalog, int(size))
+                print("Para la muestra de", size, "elementos, el tiempo (mseg)es: '", str(result[0]))
+                regresar = False
+            elif int(ordenamiento[0]) == 1:
+                size = input("Indique el tamanio de la muestra: ")
+                result = controller.sortInsertionVideo(catalog, int(size))
+                print("Para la muestra de", size, "elementos, el tiempo (mseg)es: '", str(result[0]))
+                regresar = False
+
+            elif int(ordenamiento[0]) == 2:
+                size = input("Indique el tamanio de la muestra: ")
+                result = controller.sortShellVideo(catalog, int(size))
+                print("Para la muestra de", size, "elementos, el tiempo (mseg)es: '", str(result[0]))
+                regresar = False
+            else: 
+                print('Porfavor recuerde que es un numero entre 0 y 2') 
     elif int(inputs[0] == 3):
         print("Cargando informacion de videos ...")
 

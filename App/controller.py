@@ -32,11 +32,18 @@ El controlador se encarga de mediar entre la vista y el modelo.
 
 # Inicialización del Catálogo de libros
 
-def initCatalog():
+def initCatalog_ARRAY_LIST():
     """
-    Llama la funcion de inicializacion del catalogo del modelo.
+    Llama la funcion de inicializacion del catalogo del modelo en modo ARRA_LIST.
     """
-    catalog = model.newCatalog()
+    catalog = model.newCatalog_ARRAY_LIST()
+    return catalog
+
+def initCatalog_SINGLE_LINKED():
+    """
+    Llama la funcion de inicializacion del catalogo del modelo en modo SINGLE_LINKED.
+    """
+    catalog = model.newCatalog_SINGLE_LINKED()
     return catalog
 
     
@@ -57,7 +64,7 @@ def loadVideos(catalog):
     cada una de ellas, se crea en la lsita de categorias, a dicha categoria 
     una referencia al video que se esta procesando.
     """
-    videosfile = cf.data_dir + 'videos-small.csv'
+    videosfile = cf.data_dir + 'videos-large.csv'
     input_file = csv.DictReader(open(videosfile))
     for video in input_file:
         model.addVideo(catalog, video)
@@ -73,4 +80,21 @@ def loadCategories(catalog):
         
 # Funciones de ordenamiento
 
+def sortSelectionVideo(catalog, size):
+    """
+    Ordena los videos por views
+    """
+    return model.sortSelectionVideos(catalog, size)
+
+def sortInsertionVideo(catalog, size):
+    """
+    Ordena los videos por views
+    """
+    return model.sortInsertionVideos(catalog, size)
+
+def sortShellVideo(catalog, size):
+    """
+    Ordena los videos por views
+    """
+    return model.sortShellVideos(catalog, size)
 # Funciones de consulta sobre el catálogo
