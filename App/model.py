@@ -48,7 +48,8 @@ def newCatalog_ARRAY_LIST():
     catalog = {'videos':None,
                 'categories':None}
 
-    catalog['videos'] = lt.newList()
+    catalog['videos'] = lt.newList('ARRAY_LIST',
+                                       cmpfunction=cmpVideosByViews)
     catalog['categories'] = lt.newList('ARRAY_LIST',
                                        cmpfunction=comparecategories)
 
@@ -64,7 +65,8 @@ def newCatalog_SINGLE_LINKED():
     catalog = {'videos':None,
                 'categories':None}
 
-    catalog['videos'] = lt.newList()
+    catalog['videos'] = lt.newList('SINGLE_LINKED',
+                                       cmpfunction=cmpVideosByViews)
     catalog['categories'] = lt.newList('SINGLE_LINKED',
                                        cmpfunction=comparecategories)
 
