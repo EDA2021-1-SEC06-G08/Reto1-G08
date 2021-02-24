@@ -65,7 +65,7 @@ def loadVideos(catalog):
     una referencia al video que se esta procesando.
     """
     videosfile = cf.data_dir + 'videos-large.csv'
-    input_file = csv.DictReader(open(videosfile), encoding= 'utf-8')
+    input_file = csv.DictReader(open(videosfile, encoding= 'utf-8'))
     for video in input_file:
         model.addVideo(catalog, video)
 
