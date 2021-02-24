@@ -109,7 +109,7 @@ while True:
             if int(ordenamiento[0]) == 0:
                 size = input("Indique el tamanio de la muestra: ")
                 result = controller.sortSelectionVideo(catalog, int(size))
-                if size <= lt.size(catalog['videos']):
+                if int(size) <= lt.size(catalog['videos']):
                     print("Para la muestra de", size, "elementos, el tiempo (mseg)es: '", str(result[0]))
                     values10(result[1])
                     regresar = False
@@ -118,7 +118,7 @@ while True:
             elif int(ordenamiento[0]) == 1:
                 size = input("Indique el tamanio de la muestra: ")
                 result = controller.sortInsertionVideo(catalog, int(size))
-                if size <= lt.size(catalog['videos']):
+                if int(size) <= lt.size(catalog['videos']):
                     print("Para la muestra de", size, "elementos, el tiempo (mseg)es: '", str(result[0]))
                     values10(result[1])
                     regresar = False
@@ -128,7 +128,7 @@ while True:
             elif int(ordenamiento[0]) == 2:
                 size = input("Indique el tamanio de la muestra: ")
                 result = controller.sortShellVideo(catalog, int(size))
-                if size <= lt.size(catalog['videos']):
+                if int(size) <= lt.size(catalog['videos']):
                     print("Para la muestra de", size, "elementos, el tiempo (mseg)es: '", str(result[0]))
                     values10(result[1])
                     regresar = False
