@@ -129,7 +129,7 @@ def sortSelectionVideos(catalog, size):
     return elapsed_time_mseg, sorted_list
 
 def sortInsertionVideos(catalog, size):
-    sub_list = lt.subList(catalog['videos'], 0, size)
+    sub_list = lt.subList(catalog['videos'], 1, size)
     sub_list = sub_list.copy()
     start_time = time.process_time()
     sorted_list = es.sort(sub_list,cmpVideosByViews)
