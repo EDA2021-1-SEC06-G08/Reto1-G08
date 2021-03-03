@@ -100,7 +100,6 @@ while True:
                 result = controller.sortMergeVideo(catalog, int(size))
                 if int(size) <= lt.size(catalog['videos']):
                     print("Para la muestra de", size, "elementos, el tiempo (mseg)es: '", str(result[0]))
-
                     regresar = False
                 else:
                     print("Porfavor introduzca un numero menor que: " + str(lt.size(catalog['videos'])))
@@ -109,7 +108,6 @@ while True:
                 result = controller.sortQuickVideo(catalog, int(size))
                 if int(size) <= lt.size(catalog['videos']):
                     print("Para la muestra de", size, "elementos, el tiempo (mseg)es: '", str(result[0]))
-
                     regresar = False
                 else:
                     print("Porfavor introduzca un numero menor que: " + str(lt.size(catalog['videos'])))
