@@ -80,21 +80,15 @@ def loadCategories(catalog):
         
 # Funciones de ordenamiento
 
-def sortSelectionVideo(catalog, size):
+def sortQuickVideo(catalog, size):
     """
     Ordena los videos por views
     """
-    return model.sortSelectionVideos(catalog, size)
+    return model.sortQuickVideos(catalog, size)
 
-def sortInsertionVideo(catalog, size):
+def sortMergeVideo(catalog, size):
     """
     Ordena los videos por views
     """
-    return model.sortInsertionVideos(catalog, size)
-
-def sortShellVideo(catalog, size):
-    """
-    Ordena los videos por views
-    """
-    return model.sortShellVideos(catalog, size)
+    return model.sortMergeVideos(catalog, size)
 # Funciones de consulta sobre el catálogo

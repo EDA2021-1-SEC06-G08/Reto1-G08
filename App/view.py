@@ -61,17 +61,6 @@ def loadData(catalog):
     """
     controller.loadData(catalog)
 
-def values10(catalog, sample=10):
-    size = lt.size(catalog)
-    if size > sample:
-        print("Los primeros ", sample, " videos ordenados son:")
-        i = 0
-        while i <=sample:
-            video = lt.getElement(catalog,i)
-            print('Titulo:' + video['title'] + 'Likes:' + video['likes'] + 
-                 'Vistas:' + video['views'])
-            i += 1
-
 catalog = None
 
 """
@@ -105,32 +94,22 @@ while True:
     elif int(inputs[0]) == 2:
         regresar = True
         while regresar:
-            ordenamiento = input('Seleccione 0 si quiere que el ordenamiento sea de tipo Selection, 1 si quiere que sea Insertion y 2 si quiere que sea Shell\n')
+            ordenamiento = input('Seleccione 0 si quiere que el ordenamiento sea de tipo Merge, 1 si quiere que sea Quick\n')
             if int(ordenamiento[0]) == 0:
                 size = input("Indique el tamanio de la muestra: ")
-                result = controller.sortSelectionVideo(catalog, int(size))
+                result = controller.sortMergeVideo(catalog, int(size))
                 if int(size) <= lt.size(catalog['videos']):
                     print("Para la muestra de", size, "elementos, el tiempo (mseg)es: '", str(result[0]))
-                    values10(result[1])
+
                     regresar = False
                 else:
                     print("Porfavor introduzca un numero menor que: " + str(lt.size(catalog['videos'])))
             elif int(ordenamiento[0]) == 1:
                 size = input("Indique el tamanio de la muestra: ")
-                result = controller.sortInsertionVideo(catalog, int(size))
+                result = controller.sortQuickVideo(catalog, int(size))
                 if int(size) <= lt.size(catalog['videos']):
                     print("Para la muestra de", size, "elementos, el tiempo (mseg)es: '", str(result[0]))
-                    values10(result[1])
-                    regresar = False
-                else:
-                    print("Porfavor introduzca un numero menor que: " + str(lt.size(catalog['videos'])))
 
-            elif int(ordenamiento[0]) == 2:
-                size = input("Indique el tamanio de la muestra: ")
-                result = controller.sortShellVideo(catalog, int(size))
-                if int(size) <= lt.size(catalog['videos']):
-                    print("Para la muestra de", size, "elementos, el tiempo (mseg)es: '", str(result[0]))
-                    values10(result[1])
                     regresar = False
                 else:
                     print("Porfavor introduzca un numero menor que: " + str(lt.size(catalog['videos'])))
