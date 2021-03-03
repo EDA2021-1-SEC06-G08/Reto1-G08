@@ -28,9 +28,8 @@
 import config as cf
 import time
 from DISClib.ADT import list as lt
-from DISClib.Algorithms.Sorting import shellsort as sa
-from DISClib.Algorithms.Sorting import insertionsort as es
-from DISClib.Algorithms.Sorting import selectionsort as sas
+from DISClib.Algorithms.Sorting import quicksort as sa
+from DISClib.Algorithms.Sorting import mergesort as es
 assert cf
 
 """
@@ -119,11 +118,11 @@ def cmpVideosByViews(video1, video2):
         return False
 
 # Funciones de ordenamiento
-def sortSelectionVideos(catalog, size):
+def sortMergeVideos(catalog, size):
     sub_list = lt.subList(catalog['videos'], 0, size)
     sub_list = sub_list.copy()
     start_time = time.process_time()
-    sorted_list = sas.sort(sub_list,cmpVideosByViews)
+    sorted_list = sa.sort(sub_list,cmpVideosByViews)
     stop_time = time.process_time()
     elapsed_time_mseg = (stop_time - start_time)*1000
     return elapsed_time_mseg, sorted_list
@@ -133,15 +132,6 @@ def sortInsertionVideos(catalog, size):
     sub_list = sub_list.copy()
     start_time = time.process_time()
     sorted_list = es.sort(sub_list,cmpVideosByViews)
-    stop_time = time.process_time()
-    elapsed_time_mseg = (stop_time - start_time)*1000
-    return elapsed_time_mseg, sorted_list
-
-def sortShellVideos(catalog, size):
-    sub_list = lt.subList(catalog['videos'], 0, size)
-    sub_list = sub_list.copy()
-    start_time = time.process_time()
-    sorted_list = sa.sort(sub_list, cmpVideosByViews)
     stop_time = time.process_time()
     elapsed_time_mseg = (stop_time - start_time)*1000
     return elapsed_time_mseg, sorted_list
