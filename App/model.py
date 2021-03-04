@@ -127,7 +127,7 @@ def sortMergeVideos(catalog, size):
     elapsed_time_mseg = (stop_time - start_time)*1000
     return elapsed_time_mseg, sorted_list
 
-def sortInsertionVideos(catalog, size):
+def sortQuickVideos(catalog, size):
     sub_list = lt.subList(catalog['videos'], 1, size)
     sub_list = sub_list.copy()
     start_time = time.process_time()
