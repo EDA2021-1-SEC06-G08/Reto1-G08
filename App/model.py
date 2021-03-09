@@ -28,8 +28,8 @@
 import config as cf
 import time
 from DISClib.ADT import list as lt
-from DISClib.Algorithms.Sorting import quicksort as sa
-from DISClib.Algorithms.Sorting import mergesort as es
+from DISClib.Algorithms.Sorting import shellsort as sa
+from DISClib.DataStructures import listiterator as it
 assert cf
 
 """
@@ -39,24 +39,7 @@ una para los videos, otra para las categorias de los mismos.
 
 # Construccion de modelos
 
-def newCatalog_ARRAY_LIST():
-    """
-    Inicializa el catálogo de videos. Crea una lista vacia para guardar todos los videos,
-    adicionalmente, crea una lista vacia para las categorias. Retorna el catalogo inicializado.
-    """
-    catalog = {'videos':None,
-                'categories':None}
-
-    catalog['videos'] = lt.newList('ARRAY_LIST',
-                                       cmpfunction=cmpVideosByViews)
-    catalog['categories'] = lt.newList('ARRAY_LIST',
-                                       cmpfunction=comparecategories)
-
-
-    return catalog
-
-
-def newCatalog_SINGLE_LINKED():
+def newCatalog_SingleList():
     """
     Inicializa el catálogo de videos. Crea una lista vacia para guardar todos los videos,
     adicionalmente, crea una lista vacia para las categorias. Retorna el catalogo inicializado.
@@ -68,7 +51,6 @@ def newCatalog_SINGLE_LINKED():
                                        cmpfunction=cmpVideosByViews)
     catalog['categories'] = lt.newList('SINGLE_LINKED',
                                        cmpfunction=comparecategories)
-
 
     return catalog
 
@@ -85,7 +67,8 @@ def addCategory(catalog, category):
     Adiciona la categoria a lista de categoria
     """
     t = newCategory(category['name'], category['id'])
-    lt.addLast(catalog['categories'], t)
+    if lt.isPresent(catalog['categories'],t) == 0:
+        lt.addLast(catalog['categories'], t)
 
 # Funciones para creacion de datos
 
@@ -100,10 +83,22 @@ def newCategory(name, id):
 
 # Funciones de consulta
 
+def organizarCountryCategory(catalog, country, id):
+
+    countryVideoList = lt.newList('ARRAY_LIST')
+    iterador = it.newIterator(catalog['videos'])
+    while it.hasNext(iterador):
+        elemento = it.next(iterador)
+        if compareCountryCategory(elemento,country, id) == 1:
+            lt.addFirst(countryVideoList,elemento)
+    return countryVideoList
+    
+
 # Funciones utilizadas para comparar elementos dentro de una lista
 
 def comparecategories(name, category):
-    return (name == category['name'])
+    if name == category:
+        return 0
 
 def cmpVideosByViews(video1, video2):
     """
@@ -113,25 +108,20 @@ def cmpVideosByViews(video1, video2):
         video2: informacion del segundo video que incluye su valor 'views'
     """
     if video1['views']<video2['views']:
-        return True
+        return -1
+    elif video1['views']>video2['views']:
+        return 1
     else:
-        return False
+        return 0
+
+def compareCountryCategory(video, country, id):
+    if country == video['country'] and id == video['category_id']:
+        return 1
 
 # Funciones de ordenamiento
-def sortMergeVideos(catalog, size):
-    sub_list = lt.subList(catalog['videos'], 0, size)
-    sub_list = sub_list.copy()
-    start_time = time.process_time()
-    sorted_list = sa.sort(sub_list,cmpVideosByViews)
-    stop_time = time.process_time()
-    elapsed_time_mseg = (stop_time - start_time)*1000
-    return elapsed_time_mseg, sorted_list
 
-def sortQuickVideos(catalog, size):
-    sub_list = lt.subList(catalog['videos'], 0, size)
+def sortQuickVideos(compareCountryCategory, size):
+    sub_list = lt.subList(compareCountryCategory, 0, size)
     sub_list = sub_list.copy()
-    start_time = time.process_time()
-    sorted_list = es.sort(sub_list,cmpVideosByViews)
-    stop_time = time.process_time()
-    elapsed_time_mseg = (stop_time - start_time)*1000
-    return elapsed_time_mseg, sorted_list
+    sorted_list = sa.sort(sub_list,cmpVideosByViews)
+    return sorted_list

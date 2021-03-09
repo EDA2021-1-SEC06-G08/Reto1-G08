@@ -32,18 +32,11 @@ El controlador se encarga de mediar entre la vista y el modelo.
 
 # Inicialización del Catálogo de libros
 
-def initCatalog_ARRAY_LIST():
+def initCatalog_SingleList():
     """
     Llama la funcion de inicializacion del catalogo del modelo en modo ARRA_LIST.
     """
-    catalog = model.newCatalog_ARRAY_LIST()
-    return catalog
-
-def initCatalog_SINGLE_LINKED():
-    """
-    Llama la funcion de inicializacion del catalogo del modelo en modo SINGLE_LINKED.
-    """
-    catalog = model.newCatalog_SINGLE_LINKED()
+    catalog = model.newCatalog_SingleList()
     return catalog
 
     
@@ -80,15 +73,14 @@ def loadCategories(catalog):
         
 # Funciones de ordenamiento
 
-def sortQuickVideo(catalog, size):
+def sortCountryVideos(videos,size):
     """
-    Ordena los videos por views
+    Ordena los libros por views
     """
-    return model.sortQuickVideos(catalog, size)
+    return model.sortQuickVideos(videos,size)
 
-def sortMergeVideo(catalog, size):
-    """
-    Ordena los videos por views
-    """
-    return model.sortMergeVideos(catalog, size)
 # Funciones de consulta sobre el catálogo
+
+def nCountryVideos(catalog, country, category):
+
+    return model.organizarCountryCategory(catalog, country, category)

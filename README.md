@@ -16,5 +16,5 @@ Este directorio contiene todo el código de base que se entrega para el funciona
 -Test
 Este directorio contiene las pruebas realizadas a los TADs, Estructuras de Datos y Algoritmos.
 
-Gabriel Villabon 202013898 g.villabon
-Natali Mercado 202012682 n.mercado
+Gabriel Villabon 202013898 g.villabon Estudiante A
+Natali Mercado 202012682 n.mercado Estudiante B
