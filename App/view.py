@@ -109,6 +109,7 @@ def nOrganizador(videos, n):
             print('Las viewes son: ' + video['views'])
             print('Los likes son: ' + video['likes'])
             print('Los dislikes son: ' + video['dislikes'])
+            i+=1
 
 catalog = None
 
