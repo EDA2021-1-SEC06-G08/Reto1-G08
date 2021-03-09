@@ -99,12 +99,12 @@ def nOrganizador(videos, n):
     size = lt.size(videos)
     print('Los videos son: ')
     if size > n:
-        i=0
+        i=1
         while i <= n:
             video = lt.getElement(videos, i)
-            print('La fecha de trending es: ' + video['trending_date'])
             print('El titulo es: ' + video['title'])
             print('El canal es: ' + video['channel_title'])
+            print('La fecha de trending es: ' + video['trending_date'])
             print('La fecha de publicacion es: ' + video['publish_time'])
             print('Las viewes son: ' + video['views'])
             print('Los likes son: ' + video['likes'])

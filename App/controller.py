@@ -77,7 +77,7 @@ def sortCountryVideos(videos,size):
     """
     Ordena los libros por views
     """
-    return model.sortQuickVideos(videos,size)
+    return model.sortShellVideos(videos,size)
 
 # Funciones de consulta sobre el catálogo
 

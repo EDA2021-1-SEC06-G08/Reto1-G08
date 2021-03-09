@@ -107,12 +107,7 @@ def cmpVideosByViews(video1, video2):
         video1: informacion del primer video que incluye su valor 'views'
         video2: informacion del segundo video que incluye su valor 'views'
     """
-    if video1['views']<video2['views']:
-        return -1
-    elif video1['views']>video2['views']:
-        return 1
-    else:
-        return 0
+    return int(video1['views']) > int(video2['views'])
 
 def compareCountryCategory(video, country, id):
     if country == video['country'] and id == video['category_id']:
@@ -120,8 +115,8 @@ def compareCountryCategory(video, country, id):
 
 # Funciones de ordenamiento
 
-def sortQuickVideos(compareCountryCategory, size):
-    sub_list = lt.subList(compareCountryCategory, 0, size)
+def sortShellVideos(list, size):
+    sub_list = lt.subList(list, 0, size)
     sub_list = sub_list.copy()
     sorted_list = sa.sort(sub_list,cmpVideosByViews)
     return sorted_list
