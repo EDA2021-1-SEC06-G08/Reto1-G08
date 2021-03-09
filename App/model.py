@@ -101,6 +101,7 @@ def newCategory(name, id):
 
 # Funciones de consulta
 
+
 # Funciones utilizadas para comparar elementos dentro de una lista
 
 def comparecategories(name, category):
