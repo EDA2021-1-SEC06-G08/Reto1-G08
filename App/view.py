@@ -36,21 +36,12 @@ operación solicitada
 
 def printMenu():
     print("Bienvenido")
-<<<<<<< HEAD
-    print("1- Cargar información en el catálogo.")
-    print("2- Consultar videos en tendencia en un pais y por categoria.")
-    print("3- Consultar video con mayor trending en un pais.")
-    print("4- Consultar video con mayor trending por categoria.")
-    print("5- Consultar los videos con mas vistas.")
-    print("0- Salir del menu.")
-=======
     print("1- Cargar información en el catálogo")
     print("2- Consultar videos en tendencia de un pais y en una categoria")
     print("3- Consultar video con mayor trending en un pais")
     print("4- Consultar video con mayor trending por categoria")
     print("5- Consultar los videos con mas vistas")
     print("0- Salir del menu")
->>>>>>> g.villabon
 
 def initCatalog_SingleList():
     """
