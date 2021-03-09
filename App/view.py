@@ -140,6 +140,7 @@ while True:
         nOrganizador(video, n)
 
     elif int(inputs[0] == 3):
+        
         print("Cargando informacion de videos ...")
         pais = input("Introduca un pais: ")
 

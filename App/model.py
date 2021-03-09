@@ -120,13 +120,10 @@ def compareCountryCategory(video, country, id):
 
 # Funciones de ordenamiento
 
-<<<<<<< HEAD
-def sortQuickVideos(catalog, size):
-    sub_list = lt.subList(catalog['videos'], 1, size)
-=======
 def sortQuickVideos(compareCountryCategory, size):
     sub_list = lt.subList(compareCountryCategory, 0, size)
->>>>>>> g.villabon
     sub_list = sub_list.copy()
     sorted_list = sa.sort(sub_list,cmpVideosByViews)
     return sorted_list
+
+    
