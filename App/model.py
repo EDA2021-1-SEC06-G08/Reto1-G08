@@ -149,7 +149,10 @@ def sortQuickVideos(compareCountryCategory, size):
 
 def sortQuicktitlte(catalog, category):
     sub_list = lista_categoria(catalog, category)
-    sorted_list = qc.sort(sub_list, comparetitle(sub_list['title'],sub_list['title'])
+    sub_lista = lt.subList(lista_categoria['videos'],0,lt.size(lista_categoria))
+    video1 = lt.getElement(sub_list,1)
+    video2 = lt.getElement(sub_list,2)
+    sorted_list = qc.sort(sub_lista, comparetitle(video1,video2))
 
     count = 0
     count_max = 0
