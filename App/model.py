@@ -161,6 +161,7 @@ def compareCountry(video, country):
     if country == video['country']:
         return  0
 
+<<<<<<< HEAD
 def compareTrendingCategory(video1, video2):
     return str(video1['trending_date']) >= str(video2['trending_date']) and video1['title'] >= video2['title']
 
@@ -169,15 +170,21 @@ def compareTrendingCategory(video1, video2):
 def sortQuickVideos(catalog, size):
     sub_list = lt.subList(catalog['videos'], 1, size)
 =======
+=======
+>>>>>>> 50c248943fed75cfa9a54a73a935ffe77615e72e
 def sortQuickVideos(compareCountryCategory, size):
     sub_list = lt.subList(compareCountryCategory, 0, size)
->>>>>>> g.villabon
     sub_list = sub_list.copy()
     sorted_list = sa.sort(sub_list,cmpVideosByViews)
     return sorted_list
+<<<<<<< HEAD
 =======
 def compareTitle(video, title):
     return title['title'] > video['title']
 
 # Funciones de ordenamiento
 >>>>>>> g.villabon
+=======
+
+    
+>>>>>>> 50c248943fed75cfa9a54a73a935ffe77615e72e
