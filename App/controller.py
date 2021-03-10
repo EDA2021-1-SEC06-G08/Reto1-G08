@@ -73,14 +73,17 @@ def loadCategories(catalog):
         
 # Funciones de ordenamiento
 
-def sortCountryVideos(videos,size):
-    """
-    Ordena los libros por views
-    """
-    return model.sortShellVideos(videos,size)
 
 # Funciones de consulta sobre el catálogo
 
 def nCountryVideos(catalog, country, category):
+    """
+    Guarda en una lista la informacion de los videos por pais y categoria
+    """
+    return model.nCountryVideos(catalog, country, category)
 
-    return model.organizarCountryCategory(catalog, country, category)
+def videoTrendingCountry(catalog, country):
+    """
+    Guarda en una lista la informacionde los videos por pais
+    """
+    return model.organizarTrendingCategory(catalog, country)

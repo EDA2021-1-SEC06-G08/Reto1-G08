@@ -85,16 +85,15 @@ def categoriesCargadas(categories):
         print(category['id'] + " " + category['name'])
         i+=1
 
-
 def nCountryVideos(catalog, country, category):
     """
-    Retorna la lista organizada por views
+    Retorna la lista organizada por pais y categoria
     """
     return controller.nCountryVideos(catalog, country, category)
 
 def nOrganizador(videos, n):
     """
-    retorna los n primeros videos
+    Retorna los n primeros videos
     """
     size = lt.size(videos)
     print('Los videos son: ')
@@ -109,7 +108,24 @@ def nOrganizador(videos, n):
             print('Las viewes son: ' + video['views'])
             print('Los likes son: ' + video['likes'])
             print('Los dislikes son: ' + video['dislikes'])
+            print('')
             i+=1
+
+def CountryTrending(catalog, country):
+    """
+    Retorna la lista organizadas por pais
+    """
+    return controller.videoTrendingCountry(catalog, country)
+
+def videoTrendingCountry(catalog, country):
+    """
+    Retorna el primer video que mas se repite
+    """
+    video = CountryTrending(catalog, country)
+    print('El titulo es: ' + video[0]['title'])
+    print('El canal es: ' + video[0]['channel_title'])
+    print('El pais es: ' + video[0]['country'])
+    print('El numero de dias es: ' + str(video[1]))
 
 catalog = None
 
@@ -129,19 +145,18 @@ while True:
         categoriesCargadas(catalog['categories'])
 
     elif int(inputs[0]) == 2:
-        
         pais = input("Introduzca un pais: ")
         categoria = input("Introduzca una categoria: ")
         print("Cargando informacion de los videos por pais y categoria...")
         videos = nCountryVideos(catalog, pais, categoria)
-        size = lt.size(videos)
-        video = controller.sortCountryVideos(videos, size)
         n = int(input("Introduzca la cantidad de videos: "))
-        nOrganizador(video, n)
+        nOrganizador(videos, n)
 
-    elif int(inputs[0] == 3):
-        print("Cargando informacion de videos ...")
-        pais = input("Introduca un pais: ")
+    elif int(inputs[0]) == 3:
+        pais = input("Introduzca un pais: ")
+        print("Cargando informacion de los videos por pais...")
+        videos = CountryTrending(catalog, pais)
+        videoTrendingCountry(catalog, pais)
 
     elif int(inputs[0] == 4):
         print("Cargando informacion de videos ...")

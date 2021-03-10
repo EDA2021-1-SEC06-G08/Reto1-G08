@@ -28,7 +28,8 @@
 import config as cf
 import time
 from DISClib.ADT import list as lt
-from DISClib.Algorithms.Sorting import shellsort as sa
+from DISClib.Algorithms.Sorting import quicksort as sa
+from DISClib.Algorithms.Sorting import mergesort as es
 from DISClib.DataStructures import listiterator as it
 assert cf
 
@@ -83,16 +84,59 @@ def newCategory(name, id):
 
 # Funciones de consulta
 
-def organizarCountryCategory(catalog, country, id):
-
+def nCountryVideos(catalog, country, id):
+    """
+    Crea una lista con la informacion de los videos por pais y categoria
+    """
     countryVideoList = lt.newList('ARRAY_LIST')
     iterador = it.newIterator(catalog['videos'])
     while it.hasNext(iterador):
         elemento = it.next(iterador)
-        if compareCountryCategory(elemento,country, id) == 1:
-            lt.addFirst(countryVideoList,elemento)
+        if compareCountryCategory(elemento,country, id) == 0:
+            lt.addLast(countryVideoList,elemento)
+    countryVideoList = sa.sort(countryVideoList, cmpVideosByViews)
     return countryVideoList
-    
+
+def organizarCountry(catalog, country):
+    """
+    Crea una lista con los videos por pais
+    """
+    countryVideoList = lt.newList('ARRAY_LIST', cmpfunction=compareTrendingCategory)
+    iterador = it.newIterator(catalog['videos'])
+    while it.hasNext(iterador):
+        elemento = it.next(iterador)
+        if compareCountry(elemento, country) == 0:
+            lt.addLast(countryVideoList, elemento)
+    countryVideoList = es.sort(countryVideoList,compareTitle)
+    return countryVideoList
+
+def organizarTrendingCategory(catalog, country):
+    """
+    dhhsgjs
+    """
+    videos = organizarCountry(catalog, country)
+    diasValGrande = 0
+    diasValPequenio = 0
+    videoGrande = None
+    videoPequenio = None
+    videoAnterior = None
+    iterador = it.newIterator(videos)
+    while it.hasNext(iterador):
+        elemento = it.next(iterador)
+        title = elemento['title']
+        if videoPequenio == None:
+            videoPequenio = title
+        elif title == videoPequenio:
+            diasValPequenio += 1
+        else:
+            if diasValGrande < diasValPequenio:
+                diasValGrande = diasValPequenio
+                videoGrande = videoAnterior
+            diasValPequenio = 1
+            videoPequenio = title
+        videoAnterior = elemento
+    return videoGrande,diasValGrande
+            
 
 # Funciones utilizadas para comparar elementos dentro de una lista
 
@@ -111,12 +155,16 @@ def cmpVideosByViews(video1, video2):
 
 def compareCountryCategory(video, country, id):
     if country == video['country'] and id == video['category_id']:
-        return 1
+        return 0
+
+def compareCountry(video, country):
+    if country == video['country']:
+        return  0
+
+def compareTrendingCategory(video1, video2):
+    return str(video1['trending_date']) >= str(video2['trending_date']) and video1['title'] >= video2['title']
+
+def compareTitle(video, title):
+    return title['title'] > video['title']
 
 # Funciones de ordenamiento
-
-def sortShellVideos(list, size):
-    sub_list = lt.subList(list, 0, size)
-    sub_list = sub_list.copy()
-    sorted_list = sa.sort(sub_list,cmpVideosByViews)
-    return sorted_list
