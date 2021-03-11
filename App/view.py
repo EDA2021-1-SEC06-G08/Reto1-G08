@@ -144,6 +144,21 @@ while True:
         title, channel, category_id, dias = controller.videomastrending(catalog, category)
         print(title, channel, category_id, dias)
  """
+        
+    elif int(inputs[0]) == 3:
+        print("bichota")
+
+    elif int(inputs[0]) == 4:
+        print("Cargando informacion de videos ...")
+        categoria = input("Introduzca una categoría: ")
+        print("Cargando informacion de los videos por pais y categoria...")
+        title, channel, category_id, dias = controller.videomastrending(catalog, categoria)
+        print(title, channel, category_id, dias)
+
+        #videomastrending = controller.sortvideostitle(categoria, catalog)
+
+
+    elif int(inputs[0]) == 5:
         tag = input("Introduzca el tag: ")
         print("Cargando informacion de videos ...")
         video_tag_mas_likes = controller.video_tag_mas_likes(catalog, tag)
@@ -165,30 +180,6 @@ while True:
                 print("Dislikes: "+ elemento['dislikes'])
                 print("Tags: "+ elemento['tags'])
             limite += 1
-    elif int(inputs[0] == 3):
-        category = input("Introduzca una categoria: ")
-        print("Cargando informacion de videos ...")
-        video_mas_trending = controller.videomastrending(catalog, category)
-        n = input("Introduzca el número de videos con más likes: ")
-        limite = 1
-        iterador = it.newIterator(video_mas_trending)
-        print("Título \t Título del canal \t fecha de publicación \t views \t likes \t dislikes \t tags")
-        while it.hasNext(iterador):
-            if limite > n:
-                break
-            else:
-                elemento = it.next(iterador)
-                print(elemento['title'] + elemento['channel_title'] + elemento['publish_time'] + elemento['views'] + elemento['likes'] + elemento['dislikes'] + elemento['tags'])
-            limite += 1
-        
-
-    elif int(inputs[0] == 4):
-        print("Cargando informacion de videos ...")
-        categoría = input("Introduzca una categoría: ")
-        videomastrending = controller.sortvideostitle(categoria, catalog)
-
-
-    elif int(inputs[0] == 5):
         print("Cargando informacion de videos ...")
         
     else:
