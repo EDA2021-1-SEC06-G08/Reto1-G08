@@ -72,11 +72,6 @@ def loadCategories(catalog):
         
 # Funciones de ordenamiento
 
-def sortCountryVideos(videos,size):
-    """
-    Ordena los libros por views
-    """
-    return model.sortQuickVideos(videos,size)
 
 def sortvideostitle(category,catalog):
     """
@@ -88,8 +83,11 @@ def sortvideostitle(category,catalog):
 # Funciones de consulta sobre el catálogo
 
 def nCountryVideos(catalog, country, category):
+    """
+    Guarda en una lista la informacion de los videos por pais y categoria
+    """
+    return model.nCountryVideos(catalog, country, category)
 
-    return model.organizarCountryCategory(catalog, country, category)
 
 #req 3 
 def videomastrending(catalog, category):
@@ -97,3 +95,9 @@ def videomastrending(catalog, category):
 #req 4 
 def video_tag_mas_likes(catalog, tags):
     return model.video_tag_mas_likes(catalog, tags)
+
+def videoTrendingCountry(catalog, country):
+    """
+    Guarda en una lista la informacionde los videos por pais
+    """
+    return model.organizarTrendingCategory(catalog, country)

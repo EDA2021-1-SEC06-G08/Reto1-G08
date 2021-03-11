@@ -29,7 +29,8 @@ import config as cf
 import time
 import operator 
 from DISClib.ADT import list as lt
-from DISClib.Algorithms.Sorting import shellsort as sa
+from DISClib.Algorithms.Sorting import quicksort as sa
+from DISClib.Algorithms.Sorting import mergesort as es
 from DISClib.DataStructures import listiterator as it
 from DISClib.Algorithms.Sorting import quicksort as qc
 assert cf
@@ -196,17 +197,60 @@ def video_tag_mas_likes(catalog, tag):
     return lst_tags 
 
 
-def organizarCountryCategory(catalog, country, id):
-
+def nCountryVideos(catalog, country, id):
+    """
+    Crea una lista con la informacion de los videos por pais y categoria
+    """
     countryVideoList = lt.newList('ARRAY_LIST')
     iterador = it.newIterator(catalog['videos'])
     while it.hasNext(iterador):
         elemento = it.next(iterador)
-        if compareCountryCategory(elemento,country, id) == 1:
-            lt.addFirst(countryVideoList,elemento)
+        if compareCountryCategory(elemento,country, id) == 0:
+            lt.addLast(countryVideoList,elemento)
+    countryVideoList = sa.sort(countryVideoList, cmpVideosByViews)
+    return countryVideoList
+
+def organizarCountry(catalog, country):
+    """
+    Crea una lista con los videos por pais
+    """
+    countryVideoList = lt.newList('ARRAY_LIST', cmpfunction=compareTrendingCategory)
+    iterador = it.newIterator(catalog['videos'])
+    while it.hasNext(iterador):
+        elemento = it.next(iterador)
+        if compareCountry(elemento, country) == 0:
+            lt.addLast(countryVideoList, elemento)
+    countryVideoList = es.sort(countryVideoList,compareTitle)
     return countryVideoList
 
 
+def organizarTrendingCategory(catalog, country):
+    """
+    Realiza las comparaciones entre titulos y sumas los días en trending 
+    """
+    videos = organizarCountry(catalog, country)
+    diasValGrande = 0
+    diasValPequenio = 0
+    videoGrande = None
+    videoPequenio = None
+    videoAnterior = None
+    iterador = it.newIterator(videos)
+    while it.hasNext(iterador):
+        elemento = it.next(iterador)
+        title = elemento['title']
+        if videoPequenio == None:
+            videoPequenio = title
+        elif title == videoPequenio:
+            diasValPequenio += 1
+        else:
+            if diasValGrande < diasValPequenio:
+                diasValGrande = diasValPequenio
+                videoGrande = videoAnterior
+            diasValPequenio = 1
+            videoPequenio = title
+        videoAnterior = elemento
+    return videoGrande,diasValGrande
+            
 
 # Funciones utilizadas para comparar elementos dentro de una lista
 
@@ -222,12 +266,7 @@ def cmpVideosByViews(video1, video2):
         video1: informacion del primer video que incluye su valor 'views'
         video2: informacion del segundo video que incluye su valor 'views'
     """
-    if video1['views']<video2['views']:
-        return -1
-    elif video1['views']>video2['views']:
-        return 1
-    else:
-        return 0
+    return int(video1['views']) > int(video2['views'])
 
 
 #compara los datos por titulo
@@ -236,13 +275,34 @@ def comparetitle(video1, video2):
         
 def compareCountryCategory(video, country, id):
     if country == video['country'] and id == video['category_id']:
-        return 1
+        return 0
 
+def compareCountry(video, country):
+    if country == video['country']:
+        return  0
+
+<<<<<<< HEAD
+def compareTrendingCategory(video1, video2):
+    return str(video1['trending_date']) >= str(video2['trending_date']) and video1['title'] >= video2['title']
+
+<<<<<<< HEAD
+<<<<<<< HEAD
+
+=======
+=======
+>>>>>>> 50c248943fed75cfa9a54a73a935ffe77615e72e
+
+<<<<<<< HEAD
+=======
+def compareTitle(video, title):
+    return title['title'] > video['title']
+
+<<<<<<< HEAD
+=======
 # Funciones de ordenamiento
+>>>>>>> g.villabon
+=======
 
-def sortQuickVideos(compareCountryCategory, size):
-    sub_list = lt.subList(compareCountryCategory, 0, size)
-    sub_list = sub_list.copy()
-    sorted_list = sa.sort(sub_list,cmpVideosByViews)
-    return sorted_list
-
+    
+>>>>>>> 50c248943fed75cfa9a54a73a935ffe77615e72e
+>>>>>>> de33547173f801a604c209679b06858b6d076844
