@@ -27,6 +27,7 @@
 
 import config as cf
 import time
+import operator 
 from DISClib.ADT import list as lt
 from DISClib.Algorithms.Sorting import shellsort as sa
 from DISClib.DataStructures import listiterator as it
@@ -61,7 +62,7 @@ def newCatalog_SingleList():
 def addVideo(catalog, video):
     # Se adiciona el video a la lista de videos
     lt.addLast(catalog['videos'],video)
-
+    
 
 def addCategory(catalog, category):
     """
@@ -82,7 +83,118 @@ def newCategory(name, id):
     category['id'] = id
     return category
 
-# Funciones de consulta
+#Funciones requerimiento 3 
+
+    """
+    Crea una lista con los videos que tienen la categoría que entra por parametro. 
+    """
+def lista_categoria(catalog, category):
+    categorylist = lt.newList('ARRAY_LIST')
+    iterador = it.newIterator(catalog['videos'])
+    while it.hasNext(iterador):
+        elemento = it.next(iterador)
+        if comparecategory_video(category, elemento, catalog) == 1:
+            lt.addLast(categorylist,elemento)
+    return categorylist
+
+    """
+    Crea un diccionario con los id de los paises de la categorylist y cuenta
+    el número de apariciones del id para obtener el video mas trending 
+    """
+def creardiccionarioId(categorylist):
+    dicc = {}
+    iterador = it.newIterator(categorylist)
+    while it.hasNext(iterador):
+        elemento = it.next(iterador)
+        id = elemento['video_id']
+        if id not in dicc.keys():
+            dicc[id] = 1
+        else:
+            dicc[id] += 1 
+    max_id = max(dicc.items(),key=operator.itemgetter(1))[0]
+    return max_id, dicc[max_id]
+
+    """
+    relaciona el video_id con los datos del video que tiene el id correspondiente 
+    """
+def buscar_id(catalog, id):
+    datos = None
+    iterador = it.newIterator(catalog['videos'])
+    while it.hasNext(iterador):
+        elemento = it.next(iterador)
+        actual = elemento['video_id']
+        if id == actual:
+            datos = elemento 
+            break
+    return datos
+
+    """
+    relaciona la el id de la categoría con el nombre de la categoría
+    """
+
+def relacionar_id_categorias(category, catalog):
+    nombre = ""
+    iterador = it.newIterator(catalog['categories'])
+    while it.hasNext(iterador):
+        elemento = it.next(iterador)
+        if category == elemento['id']:
+            nombre = elemento['name']
+            break
+    return nombre
+
+    """
+    relaciona la categoría que entra por parametro con la categoría de cada video por su nombre 
+    """
+
+def comparecategory_video(category, video, catalog):
+    relacion = relacionar_id_categorias(video['category_id'], catalog)
+    if category == relacion:
+        return 1
+
+    """
+    Obtiene el video mas trending teniendo en cuenta la categorylist, el video con mas apariciones de video_id
+    y la relación entre el id obtenido con los datos del pais correspondiente. 
+    """
+
+def videomastrending(catalog, category):
+    lista = lista_categoria(catalog, category)
+    diccionario,dias = creardiccionarioId(lista)
+    datos_video = buscar_id(catalog, diccionario)
+    return datos_video['title'], datos_video['channel_title'], datos_video['category_id'], dias
+
+
+
+#Funciones req 4 
+    """
+    Crea una lista con los videos que tienen el tag que entra por parametro. 
+    """
+
+def lista_tags(catalog, tag):
+    taglist = lt.newList('ARRAY_LIST')
+    iterador = it.newIterator(catalog['videos'])
+    while it.hasNext(iterador):
+        elemento = it.next(iterador)
+        lista_tags = elemento['tags'].split("|")
+        tag_entre_comillas = '"' + tag + '"'
+        if tag_entre_comillas in lista_tags:
+            lt.addLast(taglist, elemento)
+    return taglist
+
+    """
+    Compara por likes, de mayor a menor 
+    """
+def shell_comparacion(elemento1, elemento2):
+    return elemento1['likes'] > elemento2['likes']
+
+    """
+    Usa el ordenamiento shell para organizar los videos de taglist teniendo en
+    cuenta los likes (de mayor a menor)
+    """
+def video_tag_mas_likes(catalog, tag):
+    lst_tags = lista_tags(catalog, tag)
+    lt.ordenamientoshell(lst_tags, shell_comparacion)
+    return lst_tags 
+
 
 def organizarCountryCategory(catalog, country, id):
 
@@ -94,16 +206,10 @@ def organizarCountryCategory(catalog, country, id):
             lt.addFirst(countryVideoList,elemento)
     return countryVideoList
 
-def lista_categoria(catalog, category):
-    categorylist = lt.newList('ARRAY_LIST')
-    iterador = it.newIterator(catalog['videos'])
-    while it.hasNext(iterador):
-        elemento = it.next(iterador)
-        if comparecategory_video(category, elemento) == 1:
-            lt.addFirst(categorylist,elemento)
-    return lista_categoria
+
 
 # Funciones utilizadas para comparar elementos dentro de una lista
+
 
 def comparecategories(name, category):
     if name == category:
@@ -122,19 +228,12 @@ def cmpVideosByViews(video1, video2):
         return 1
     else:
         return 0
-def comparecategory_video(category, video):
-    if category == video["category_id"]:
-        return 1
+
+
+#compara los datos por titulo
 def comparetitle(video1, video2):
-    if str((video1['title']) > str(video2['title'])):
-        return 1 
-    elif str((video1['title']) > str(video2['title'])):
-        return -1 
-    elif str((video1['title']) == str(video2['title'])):
-        return 0
-
-
-
+    return str((video1['title']) > str(video2['title']))
+        
 def compareCountryCategory(video, country, id):
     if country == video['country'] and id == video['category_id']:
         return 1
@@ -147,26 +246,3 @@ def sortQuickVideos(compareCountryCategory, size):
     sorted_list = sa.sort(sub_list,cmpVideosByViews)
     return sorted_list
 
-def sortQuicktitlte(catalog, category):
-    sub_list = lista_categoria(catalog, category)
-    sub_lista = lt.subList(lista_categoria['videos'],0,lt.size(lista_categoria))
-    video1 = lt.getElement(sub_list,1)
-    video2 = lt.getElement(sub_list,2)
-    sorted_list = qc.sort(sub_lista, comparetitle(video1,video2))
-
-    count = 0
-    count_max = 0
-    videomax = {} 
-    basevideo = lt.firstElement(sorted_list)
-    iterador = it.newIterator(sorted_list['videos'])
-    while it.hasNext(iterador):
-        elemento = it.next(iterador)
-        tempvideo = lt.getElement(sorted_list, elemento)
-        if tempvideo['title'] == basevideo ['title']:
-            count = count + 1
-            basevideo = tempvideo
-            
-            if count > count_max:
-                count_max = count 
-                videomax = tempvideo 
-    return count, videomax

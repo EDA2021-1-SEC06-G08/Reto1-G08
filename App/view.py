@@ -24,6 +24,7 @@ import config as cf
 import sys
 import controller
 from DISClib.ADT import list as lt
+from DISClib.DataStructures import listiterator as it
 assert cf
 
 
@@ -130,19 +131,56 @@ while True:
 
     elif int(inputs[0]) == 2:
         
-        pais = input("Introduzca un pais: ")
+        """ pais = input("Introduzca un pais: ")
         categoria = input("Introduzca una categoria: ")
         print("Cargando informacion de los videos por pais y categoria...")
         videos = nCountryVideos(catalog, pais, categoria)
         size = lt.size(videos)
         video = controller.sortCountryVideos(videos, size)
         n = int(input("Introduzca la cantidad de videos: "))
-        nOrganizador(video, n)
-
-    elif int(inputs[0] == 3):
-        
+        nOrganizador(video, n) """
+        """ category = input("Introduzca una categoria: ")
         print("Cargando informacion de videos ...")
-        pais = input("Introduzca un pais: ")
+        title, channel, category_id, dias = controller.videomastrending(catalog, category)
+        print(title, channel, category_id, dias)
+ """
+        tag = input("Introduzca el tag: ")
+        print("Cargando informacion de videos ...")
+        video_tag_mas_likes = controller.video_tag_mas_likes(catalog, tag)
+        n = int(input("Introduzca el número de videos con más likes: "))
+        limite = 1
+        iterador = it.newIterator(video_tag_mas_likes)
+
+        while it.hasNext(iterador):
+            if limite > n:
+                break
+            else:
+                elemento = it.next(iterador)
+                print("")
+                print("Título: " + elemento['title']) 
+                print("Título canal: " + elemento['channel_title'])
+                print("Fecha publicación: " + elemento['publish_time']) 
+                print("Visitas: "+ elemento['views'])
+                print("Likes: "+elemento['likes']) 
+                print("Dislikes: "+ elemento['dislikes'])
+                print("Tags: "+ elemento['tags'])
+            limite += 1
+    elif int(inputs[0] == 3):
+        category = input("Introduzca una categoria: ")
+        print("Cargando informacion de videos ...")
+        video_mas_trending = controller.videomastrending(catalog, category)
+        n = input("Introduzca el número de videos con más likes: ")
+        limite = 1
+        iterador = it.newIterator(video_mas_trending)
+        print("Título \t Título del canal \t fecha de publicación \t views \t likes \t dislikes \t tags")
+        while it.hasNext(iterador):
+            if limite > n:
+                break
+            else:
+                elemento = it.next(iterador)
+                print(elemento['title'] + elemento['channel_title'] + elemento['publish_time'] + elemento['views'] + elemento['likes'] + elemento['dislikes'] + elemento['tags'])
+            limite += 1
+        
 
     elif int(inputs[0] == 4):
         print("Cargando informacion de videos ...")
